@@ -2,15 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.camunda</groupId>
-  <artifactId>camunda-release-parent</artifactId>
-  <version>3.10.0-SNAPSHOT</version>
+  <groupId>org.eximeebpms</groupId>
+  <artifactId>release-parent</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
   <packaging>pom</packaging>
-  <name>camunda - Release Parent Pom</name>
+  <name>EximeeBPMS - Release Parent Pom</name>
 
   <description>
-    This pom defines the required plugins and profiles to allow a camunda release build.
-    Inherit this pom when you want to release your project into the camunda nexus and/or maven central.
+    This pom defines the required plugins and profiles to allow a EximeeBPMS release build.
   </description>
 
   <properties>
@@ -19,19 +18,18 @@
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
     <!-- we use java 1.7 for our projects -->
-    <version.java>1.7</version.java>
+    <version.java>11</version.java>
     <version.ejb>3.1</version.ejb>
 
-    <skip.camunda.release>false</skip.camunda.release>
+    <skip.eximeebpms.release>false</skip.eximeebpms.release>
     <skip.central.release>false</skip.central.release>
-    <nexus.snapshot.repository.id>camunda-nexus</nexus.snapshot.repository.id>
-    <nexus.snapshot.repository>https://artifacts.camunda.com/artifactory/camunda-bpm-snapshots</nexus.snapshot.repository>
-    <nexus.release.repository.id>camunda-nexus</nexus.release.repository.id>
-    <nexus.release.repository>https://artifacts.camunda.com/artifactory/camunda-bpm</nexus.release.repository>
 
-    <nexus.staging.deploy.id>camunda-nexus</nexus.staging.deploy.id>
-    <nexus.staging.deploy.url>https://artifacts.camunda.com/artifactory</nexus.staging.deploy.url>
-    <nexus.sonatype.url>https://oss.sonatype.org</nexus.sonatype.url>
+    <nexus.snapshot.repository.id>eximeebpms-snapshots</nexus.snapshot.repository.id>
+    <nexus.snapshot.repository>https://artifacts.eximeebpms.org/repository/snapshots</nexus.snapshot.repository>
+    <nexus.release.repository.id>eximeebpms-public</nexus.release.repository.id>
+    <nexus.release.repository>https://artifacts.eximeebpms.org/repository/public</nexus.release.repository>
+    <nexus.sonatype.url>https://central.sonatype.com</nexus.sonatype.url>
+
     <gpg.useagent>true</gpg.useagent>
 
     <plugin.version.clean>3.1.0</plugin.version.clean>
@@ -194,27 +192,27 @@
     </pluginManagement>
 
     <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <extensions>true</extensions>
-        <executions>
-          <execution>
-            <id>default-deploy</id>
-            <phase>deploy</phase>
-            <goals>
-              <goal>deploy</goal>
-            </goals>
-            <configuration>
-              <detectBuildFailures>true</detectBuildFailures>
-              <serverId>${nexus.staging.deploy.id}</serverId>
-              <nexusUrl>${nexus.staging.deploy.url}</nexusUrl>
-              <skipStaging>true</skipStaging>
-              <skipNexusStagingDeployMojo>${skip.camunda.release}</skipNexusStagingDeployMojo>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
+<!--      <plugin>-->
+<!--        <groupId>org.sonatype.plugins</groupId>-->
+<!--        <artifactId>nexus-staging-maven-plugin</artifactId>-->
+<!--        <extensions>true</extensions>-->
+<!--        <executions>-->
+<!--          <execution>-->
+<!--            <id>default-deploy</id>-->
+<!--            <phase>deploy</phase>-->
+<!--            <goals>-->
+<!--              <goal>deploy</goal>-->
+<!--            </goals>-->
+<!--            <configuration>-->
+<!--              <detectBuildFailures>true</detectBuildFailures>-->
+<!--              <serverId>${nexus.staging.deploy.id}</serverId>-->
+<!--              <nexusUrl>${nexus.staging.deploy.url}</nexusUrl>-->
+<!--              <skipStaging>true</skipStaging>-->
+<!--              <skipNexusStagingDeployMojo>${skip.camunda.release}</skipNexusStagingDeployMojo>-->
+<!--            </configuration>-->
+<!--          </execution>-->
+<!--        </executions>-->
+<!--      </plugin>-->
     </plugins>
   </build>
 
@@ -369,31 +367,63 @@
   </licenses>
 
   <organization>
-    <name>Camunda Services GmbH</name>
-    <url>http://www.camunda.com</url>
+    <name>EximeeBPMS</name>
+    <url>https://eximeebpms.org</url>
   </organization>
 
-  <url>http://www.camunda.org</url>
+  <url>https://eximeebpms.org</url>
 
   <developers>
     <developer>
-      <id>camunda.org</id>
-      <name>camunda BPM Community</name>
-      <organization>camunda.org</organization>
-      <organizationUrl>http://camunda.org</organizationUrl>
+      <id>EximeeBPMS</id>
+      <name>EximeeBPMS Community</name>
+      <organization>EximeeBPMS</organization>
+      <organizationUrl>https://eximeebpms.org</organizationUrl>
     </developer>
   </developers>
 
   <scm>
-    <url>https://github.com/camunda/camunda-release-parent</url>
-    <connection>scm:git:git@github.com:camunda/camunda-release-parent.git</connection>
-    <developerConnection>scm:git:git@github.com:camunda/camunda-release-parent.git</developerConnection>
+    <url>https://github.com/EximeeBPMS/eximeebpms-release-parent</url>
+    <connection>scm:git:git@github.com:EximeeBPMS/eximeebpms-release-parent.git</connection>
+    <developerConnection>scm:git:git@github.com:EximeeBPMS/eximeebpms-release-parent.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
 
   <issueManagement>
-    <system>Jira</system>
-    <url>https://app.camunda.com/jira/browse/CAM/</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/EximeeBPMS/eximeebpms-release-parent/issues</url>
   </issueManagement>
+
+  <repositories>
+    <repository>
+      <id>maven-central</id>
+      <name>Maven Central</name>
+      <url>https://repo1.maven.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <!-- Required for local builds by community users on master branch -->
+      <id>eximeebpms-public</id>
+      <name>EximeeBPMS Public Repository</name>
+      <url>https://artifacts.eximeebpms.org/repository/public</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <!-- Required for local builds by developers on maintainance branches -->
+      <id>eximeebpms-snapshots</id>
+      <name>EximeeBPMS Snapshots repository</name>
+      <url>https://artifacts.eximeebpms.org/repository/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
 </project>
