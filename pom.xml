@@ -159,13 +159,16 @@
           <artifactId>maven-deploy-plugin</artifactId>
           <version>${plugin.version.deploy}</version>
           <configuration>
-            <skip>true</skip>
+            <skip>${skip.eximeebpms.release}</skip>
           </configuration>
         </plugin>
         <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>nexus-staging-maven-plugin</artifactId>
-          <version>${plugin.version.nexus-staging}</version>
+          <groupId>org.sonatype.central</groupId>
+          <artifactId>central-publishing-maven-plugin</artifactId>
+          <version>${plugin.version.central-publishing}</version>
+          <configuration>
+            <waitMaxTime>3600</waitMaxTime>
+          </configuration>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -191,7 +194,7 @@
       </plugins>
     </pluginManagement>
 
-    <plugins>
+<!--    <plugins>-->
 <!--      <plugin>-->
 <!--        <groupId>org.sonatype.plugins</groupId>-->
 <!--        <artifactId>nexus-staging-maven-plugin</artifactId>-->
@@ -213,7 +216,7 @@
 <!--          </execution>-->
 <!--        </executions>-->
 <!--      </plugin>-->
-    </plugins>
+<!--    </plugins>-->
   </build>
 
   <distributionManagement>
@@ -303,7 +306,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${plugin.version.javadoc}</version>
             <configuration>
-              <quiet>true</quiet>
+              <quiet>false</quiet>
             </configuration>
             <executions>
               <execution>
@@ -332,24 +335,22 @@
             </executions>
           </plugin>
           <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>nexus-staging-maven-plugin</artifactId>
+            <groupId>org.sonatype.central</groupId>
+            <artifactId>central-publishing-maven-plugin</artifactId>
             <extensions>true</extensions>
             <executions>
               <execution>
                 <id>central-deploy</id>
                 <phase>deploy</phase>
                 <goals>
-                  <goal>deploy</goal>
+                  <goal>publish</goal>
                 </goals>
                 <configuration>
-                  <detectBuildFailures>true</detectBuildFailures>
-                  <keepStagingRepositoryOnFailure>true</keepStagingRepositoryOnFailure>
-                  <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
-                  <serverId>central</serverId>
-                  <nexusUrl>${nexus.sonatype.url}</nexusUrl>
-                  <skipStaging>false</skipStaging>
-                  <skipNexusStagingDeployMojo>${skip.central.release}</skipNexusStagingDeployMojo>
+                  <deploymentName>${project.groupId}:${project.artifactId}:${project.version}</deploymentName>
+                  <failOnBuildFailure>true</failOnBuildFailure>
+                  <publishingServerId>central</publishingServerId>
+                  <centralBaseUrl>${nexus.sonatype.url}</centralBaseUrl>
+                  <skipPublishing>${skip.central.release}</skipPublishing>
                 </configuration>
               </execution>
             </executions>
@@ -391,7 +392,7 @@
 
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/EximeeBPMS/eximeebpms-release-parent/issues</url>
+    <url>https://github.com/eximeebpms/eximeebpms-release-parent/issues</url>
   </issueManagement>
 
   <repositories>
