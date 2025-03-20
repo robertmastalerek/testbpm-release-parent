@@ -24,10 +24,10 @@
     <skip.eximeebpms.release>false</skip.eximeebpms.release>
     <skip.central.release>false</skip.central.release>
 
-    <nexus.snapshot.repository.id>eximeebpms-snapshots</nexus.snapshot.repository.id>
-    <nexus.snapshot.repository>https://nexus.consdata.local/repositories/eximeebpms-snapshots</nexus.snapshot.repository>
-    <nexus.release.repository.id>eximeebpms-public</nexus.release.repository.id>
-    <nexus.release.repository>https://nexus.consdata.local/repositories/eximeebpms-releases</nexus.release.repository>
+    <snapshot.repository.id>github</snapshot.repository.id>
+    <snapshot.repository>https://maven.pkg.github.com/EximeeBPMS/eximeebpms-release-parent</snapshot.repository>
+    <release.repository.id>github</release.repository.id>
+    <release.repository>https://maven.pkg.github.com/EximeeBPMS/eximeebpms-release-parent</release.repository>
     <nexus.sonatype.url>https://central.sonatype.com</nexus.sonatype.url>
 
     <gpg.useagent>true</gpg.useagent>
@@ -41,7 +41,7 @@
     <plugin.version.maven-bundle>5.1.2</plugin.version.maven-bundle>
 
 
-    <plugin.version.deploy>2.8.2</plugin.version.deploy>
+    <plugin.version.deploy>3.1.4</plugin.version.deploy>
     <plugin.version.assembly>3.3.0</plugin.version.assembly>
     <plugin.version.ejb>3.1.0</plugin.version.ejb>
     <plugin.version.war>3.3.2</plugin.version.war>
@@ -68,6 +68,7 @@
           <configuration>
             <source>${version.java}</source>
             <target>${version.java}</target>
+            <release>${version.java}</release>
           </configuration>
         </plugin>
         <plugin>
@@ -194,40 +195,16 @@
         </plugin>
       </plugins>
     </pluginManagement>
-
-<!--    <plugins>-->
-<!--      <plugin>-->
-<!--        <groupId>org.sonatype.plugins</groupId>-->
-<!--        <artifactId>nexus-staging-maven-plugin</artifactId>-->
-<!--        <extensions>true</extensions>-->
-<!--        <executions>-->
-<!--          <execution>-->
-<!--            <id>default-deploy</id>-->
-<!--            <phase>deploy</phase>-->
-<!--            <goals>-->
-<!--              <goal>deploy</goal>-->
-<!--            </goals>-->
-<!--            <configuration>-->
-<!--              <detectBuildFailures>true</detectBuildFailures>-->
-<!--              <serverId>${nexus.staging.deploy.id}</serverId>-->
-<!--              <nexusUrl>${nexus.staging.deploy.url}</nexusUrl>-->
-<!--              <skipStaging>true</skipStaging>-->
-<!--              <skipNexusStagingDeployMojo>${skip.camunda.release}</skipNexusStagingDeployMojo>-->
-<!--            </configuration>-->
-<!--          </execution>-->
-<!--        </executions>-->
-<!--      </plugin>-->
-<!--    </plugins>-->
   </build>
 
   <distributionManagement>
     <snapshotRepository>
-      <id>${nexus.snapshot.repository.id}</id>
-      <url>${nexus.snapshot.repository}</url>
+      <id>${snapshot.repository.id}</id>
+      <url>${snapshot.repository}</url>
     </snapshotRepository>
     <repository>
-      <id>${nexus.release.repository.id}</id>
-      <url>${nexus.release.repository}</url>
+      <id>${release.repository.id}</id>
+      <url>${release.repository}</url>
     </repository>
   </distributionManagement>
 
@@ -307,7 +284,7 @@
             <artifactId>maven-javadoc-plugin</artifactId>
             <version>${plugin.version.javadoc}</version>
             <configuration>
-              <quiet>true</quiet>
+              <quiet>false</quiet>
             </configuration>
             <executions>
               <execution>
@@ -398,27 +375,8 @@
 
   <repositories>
     <repository>
-      <id>maven-central</id>
-      <name>Maven Central</name>
-      <url>https://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <!-- Required for local builds by community users on master branch -->
-      <id>eximeebpms-public</id>
-      <name>EximeeBPMS Public Repository</name>
-      <url>https://nexus.consdata.local/repositories/eximeebpms-releases</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-    <repository>
-      <!-- Required for local builds by developers on maintainance branches -->
-      <id>eximeebpms-snapshots</id>
-      <name>EximeeBPMS Snapshots repository</name>
-      <url>https://nexus.consdata.local/repositories/eximeebpms-snapshots</url>
+      <id>github</id>
+      <url>https://github.com/EximeeBPMS/eximeebpms-release-parent</url>
       <releases>
         <enabled>false</enabled>
       </releases>
