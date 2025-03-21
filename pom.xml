@@ -373,17 +373,4 @@
     <url>https://github.com/eximeebpms/eximeebpms-release-parent/issues</url>
   </issueManagement>
 
-  <repositories>
-    <repository>
-      <id>github</id>
-      <url>https://github.com/EximeeBPMS/eximeebpms-release-parent</url>
-      <releases>
-        <enabled>false</enabled>
-      </releases>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
-
 </project>
