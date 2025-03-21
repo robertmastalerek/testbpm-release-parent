@@ -4,7 +4,7 @@
 
   <groupId>org.eximeebpms</groupId>
   <artifactId>eximeebpms-release-parent</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <packaging>pom</packaging>
   <name>EximeeBPMS - Release Parent Pom</name>
 
@@ -13,6 +13,8 @@
   </description>
 
   <properties>
+    <arguments>-DskipTests -DreleaseVersion=1.0.0 -DdevelopmentVersion=1.1.0-SNAPSHOT</arguments>
+
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) ... also for the failsafe plugin -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -365,7 +367,7 @@
     <url>https://github.com/EximeeBPMS/eximeebpms-release-parent</url>
     <connection>scm:git:git@github.com:EximeeBPMS/eximeebpms-release-parent.git</connection>
     <developerConnection>scm:git:git@github.com:EximeeBPMS/eximeebpms-release-parent.git</developerConnection>
-    <tag>HEAD</tag>
+    <tag>eximeebpms-release-parent-1.0.0</tag>
   </scm>
 
   <issueManagement>
