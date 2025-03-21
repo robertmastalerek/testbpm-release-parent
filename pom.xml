@@ -13,8 +13,6 @@
   </description>
 
   <properties>
-    <arguments>-DskipTests -DreleaseVersion=1.0.0 -DdevelopmentVersion=1.1.0-SNAPSHOT</arguments>
-
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <!-- Avoid the message "[WARNING] Using platform encoding (UTF-8 actually) ... also for the failsafe plugin -->
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -155,7 +153,7 @@
           <configuration>
             <mavenExecutorId>forked-path</mavenExecutorId>
             <useReleaseProfile>false</useReleaseProfile>
-            <arguments>${arguments} -Psonatype-oss-release</arguments>
+<!--            <arguments>${arguments} -Psonatype-oss-release</arguments>-->
           </configuration>
         </plugin>
         <plugin>
