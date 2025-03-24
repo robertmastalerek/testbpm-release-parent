@@ -23,9 +23,32 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
           cache: 'maven'
+          server-id: github
+          settings-path: ${{ github.workspace }}
+
+      - name: Configure GitHub Packages
+        run: |
+          mkdir -p ~/.m2
+          echo '<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" 
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
+          http://maven.apache.org/xsd/settings-1.0.0.xsd">
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GITHUB_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>' > ~/.m2/settings.xml
 
       - name: Update version to release
         run: mvn versions:set -DnewVersion=${{ github.event.inputs.release_version }} && mvn versions:commit
+
+      - name: Deploy to GitHub Packages
+        run: mvn deploy -DskipTests
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -36,13 +59,6 @@ jobs:
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build and Push Docker Image
-        if: success()
-        run: |
-          echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u USERNAME --password-stdin
-          docker build -t ghcr.io/USERNAME/PROJECT_NAME:${{ github.event.inputs.release_version }} .
-          docker push ghcr.io/USERNAME/PROJECT_NAME:${{ github.event.inputs.release_version }}
 
       - name: Update version to next snapshot
         run: mvn versions:set -DnewVersion=${{ github.event.inputs.next_snapshot }} && mvn versions:commit
