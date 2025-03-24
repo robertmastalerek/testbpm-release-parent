@@ -28,10 +28,10 @@ jobs:
         run: mvn versions:set -DnewVersion=${{ github.event.inputs.release_version }} && mvn versions:commit
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v4
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ github.event.inputs.release_version }}
-          release_name: Release v${{ github.event.inputs.release_version }}
+          name: Release v${{ github.event.inputs.release_version }}
           draft: false
           prerelease: false
         env:
